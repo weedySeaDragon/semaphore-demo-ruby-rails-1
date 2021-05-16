@@ -20,6 +20,8 @@ blocks:
       jobs:
         - name: bundle
           commands:
+            - sem-version ruby 2.7.3
+            - sem-version node 14.16.1
             - checkout
             - cache restore
             - bundle install
@@ -32,6 +34,7 @@ blocks:
         - name: check style + security
           commands:
             - sem-version ruby 2.7.3
+            - sem-version node 14.16.1
             - checkout
             - cache restore
             - bundle install
@@ -47,6 +50,7 @@ blocks:
       prologue:
         commands:
           - sem-version ruby 2.7.3
+          - sem-version node 14.16.1
           - checkout
           - cache restore
           - bundle install
