@@ -3,10 +3,17 @@ name: Demo Rails 6 app
 agent:
   machine:
     type: e1-standard-2
-    os_image: ubuntu1804
+
   containers:
     - name: main
-      image: 'semaphoreci/ubuntu:18.04'
+      image: 'registry.semaphoreci.com/ruby:2.7'
+
+    - name: db
+      image: 'ashleyengelund/semci-u1804-pg96-sv'
+      # -e POSTGRES_PASSWORD=Pass2020! -v ${HOME}/postgres-data-9-6:/var/lib/postgresql/data -p 5432:5432
+      env_vars:
+        - name: POSTGRES_PASSWORD
+          value: Pass2020!
 blocks:
   - name: Setup
     dependencies: []
@@ -14,37 +21,37 @@ blocks:
       jobs:
         - name: bundle
           commands:
-            - sem-version ruby 2.7.3
-            - sem-version node 14.16.1
+#            - sem-version ruby 2.7.3
+#            - sem-version node 14.16.1
             - checkout
             - cache restore
             - bundle install
             - cache store
-  - name: Code scanning
-    dependencies:
-      - Setup
-    task:
-      jobs:
-        - name: check style + security
-          commands:
-            - sem-version ruby 2.7.3
-            - sem-version node 14.16.1
-            - checkout
-            - cache restore
-            - bundle install
-            - cache store
-            - bundle exec rubocop
-            - bundle exec brakeman
-    skip:
-      when: branch = 'fork-and-run'
+#  - name: Code scanning
+#    dependencies:
+#      - Setup
+#    task:
+#      jobs:
+#        - name: check style + security
+#          commands:
+#            - sem-version ruby 2.7.3
+#            - sem-version node 14.16.1
+#            - checkout
+#            - cache restore
+#            - bundle install
+#            - cache store
+#            - bundle exec rubocop
+#            - bundle exec brakeman
+#    skip:
+#      when: branch = 'fork-and-run'
   - name: Unit tests
-    dependencies:
-      - Code scanning
+#    dependencies:
+#      - Code scanning
     task:
       prologue:
         commands:
-          - sem-version ruby 2.7.3
-          - sem-version node 14.16.1
+#          - sem-version ruby 2.7.3
+#          - sem-version node 14.16.1
           - checkout
           - cache restore
           - bundle install
