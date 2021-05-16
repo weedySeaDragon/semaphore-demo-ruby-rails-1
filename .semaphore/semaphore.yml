@@ -41,6 +41,8 @@ blocks:
     skip:
       when: branch = 'fork-and-run'
   - name: Unit tests
+    dependencies:
+      - Setup
     task:
       prologue:
         commands:
