@@ -47,7 +47,7 @@ group :development, :test do
   gem 'next_rails'
 
   # be able to demonstrate mysql config on Semaphore
-  gem 'mysql2', '~> 0.5.2'
+  # gem 'mysql2', '~> 0.5.2'
 end
 
 group :development do
